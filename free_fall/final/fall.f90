@@ -14,7 +14,7 @@ program fall
 
   real(8), parameter :: v_0 = -3.8d0 !m
   
-  real(8), parameter :: c = (0.5)*density*drag*(pi*(b_rad)**(2))
+  real(8), parameter :: c = density*drag*(pi*(b_rad)**(2))
   real(8), parameter :: v_t = sqrt(2.0*f_g/c)
 
   real(8) :: step = 0.01
@@ -23,6 +23,7 @@ program fall
   real(8) :: c_v
   real(8) :: c_a
 
+  print *, v_t
   print *, "Input initial height (meters)"
   read(*,*) c_h
 
@@ -55,7 +56,7 @@ function get_drag(v) result(f_d)
   real(8), intent(in) :: v
   real(8)             :: f_d
 
-  f_d = c*(v)**(2)
+  f_d = (0.5)*c*(v)**(2)
 
 end function
 
