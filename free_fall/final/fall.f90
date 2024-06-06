@@ -15,12 +15,13 @@ program fall
   real(8), parameter :: v_0 = -3.8d0 !m
   
   real(8), parameter :: c = density*drag*(pi*(b_rad)**(2))
-  real(8), parameter :: v_t = sqrt(2.0*f_g/c)
+  real(8), parameter :: v_t = sqrt(2.d0*f_g/c)
 
-  real(8) :: step = 0.1
-  real(8) :: c_t = 0.0 !seconds
+  real(8) :: step = 0.1d0
+  real(8) :: c_t = 0.d0 !seconds
   real(8) :: c_h
-  real(8) :: c_v != v_0
+  real(8) :: c_v
+  real(8) :: p_v = v_0
   real(8) :: c_a
 
   print *, "Terminal Velocity:", v_t
@@ -32,11 +33,15 @@ program fall
   open(unit=300, file="a_t.dat")
 
   do while (c_h >= 0.0)
-    !c_v = c_v-step*(c_t+step/2.0)*(f_g-0.5*c*c_v**2)/b_mass
-    c_v = get_v(c_t+step/2.0)
-    c_h = c_h + step*c_v
-    c_a = -9.8d0 + get_drag(c_v) 
-     
+    
+
+    c_a = -9.8d0 + get_drag(p_v)/b_mass 
+    c_v = p_v+step*c_a
+    !c_v = get_v(c_t+step/2.d0)
+    !print *, c_v, get_v(c_t+step/2.d0), c_a 
+    c_h = c_h + step*(c_v+p_v)/2.d0
+    p_v = c_v
+
     c_t = c_t + step
     
     write(100,*) c_t, c_h 
