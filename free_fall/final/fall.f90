@@ -4,11 +4,11 @@ program fall
 
   real(8), parameter :: pi = 4.d0*atan(1.d0)
 
-  real(8), parameter :: drag = 0.100d0
+  real(8), parameter :: drag = 0.1d0
   real(8), parameter :: density = 1.225d0   !kg/m^2
   
   real(8), parameter :: b_mass   = 0.140d0   !kg
-  real(8), parameter :: b_rad = 0.00365d0 !meters
+  real(8), parameter :: b_rad = 0.0365d0 !meters
 
   real(8), parameter :: f_g = 9.8d0 * b_mass
 
@@ -17,13 +17,13 @@ program fall
   real(8), parameter :: c = density*drag*(pi*(b_rad)**(2))
   real(8), parameter :: v_t = sqrt(2.0*f_g/c)
 
-  real(8) :: step = 0.01
+  real(8) :: step = 0.1
   real(8) :: c_t = 0.0 !seconds
   real(8) :: c_h
-  real(8) :: c_v
+  real(8) :: c_v != v_0
   real(8) :: c_a
 
-  print *, v_t
+  print *, "Terminal Velocity:", v_t
   print *, "Input initial height (meters)"
   read(*,*) c_h
 
@@ -32,6 +32,7 @@ program fall
   open(unit=300, file="a_t.dat")
 
   do while (c_h >= 0.0)
+    !c_v = c_v-step*(c_t+step/2.0)*(f_g-0.5*c*c_v**2)/b_mass
     c_v = get_v(c_t+step/2.0)
     c_h = c_h + step*c_v
     c_a = -9.8d0 + get_drag(c_v) 
