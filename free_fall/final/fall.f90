@@ -37,8 +37,6 @@ program fall
 
     c_a = -9.8d0 + get_drag(p_v)/b_mass 
     c_v = p_v+step*c_a
-    !c_v = get_v(c_t+step/2.d0)
-    !print *, c_v, get_v(c_t+step/2.d0), c_a 
     c_h = c_h + step*(c_v+p_v)/2.d0
     p_v = c_v
 
@@ -63,14 +61,6 @@ function get_drag(v) result(f_d)
   real(8)             :: f_d
 
   f_d = (0.5)*c*(v)**(2)
-
-end function
-
-function get_v(t) result(v_i)
-  real(8), intent(in) :: t
-  real(8)             :: v_i !velocity instantaneous
-
-  v_i = v_0 - v_t*tanh((9.8d0*t)/v_t)
 
 end function
 
