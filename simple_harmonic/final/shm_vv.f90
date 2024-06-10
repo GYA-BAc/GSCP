@@ -3,7 +3,7 @@ program shm
   real(8), parameter :: m = 5
 
   real(8), parameter :: step = 0.1d0
-  real(8), parameter :: domain = 50
+  real(8), parameter :: domain = 20
  
   real(8) :: c_t = 0
   real(8) :: c_x = 0

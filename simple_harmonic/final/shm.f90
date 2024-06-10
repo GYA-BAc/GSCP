@@ -2,26 +2,24 @@ program shm
   real(8), parameter :: k = 0.5d0
   real(8), parameter :: m = 5.d0
 
-  real(8), parameter :: step = 0.05d0
-  real(8), parameter :: domain = 20
+  real(8), parameter :: step = 0.001d0
+  integer, parameter :: domain = 20000
  
-  real(8) :: c_t = step
-  real(8) :: n_x
-  real(8) :: c_x
-  real(8) :: p_x
-  real(8) :: c_v
-  real(8) :: c_a
-
-  real(8) :: ke
-  real(8) :: spe
+  real(8) :: x_0
+  real(8) :: t(domain), x(domain), v(domain), a(domain), ke(domain), spe(domain)
+  integer :: i
 
   print *, "How far to stretch the spring?"
-  read(*,*) c_x
+  read(*,*) x_0
 
-  c_a = get_a(c_x)
-  c_v = c_a*step
-  n_x = c_x + c_v + (0.5)*c_a*(step)**(2)
+  t(1) = 0
+  x(1) = x_0
 
+  t(2) = step
+  a(2) = get_a(x(1))
+  v(2) = a(1)*step
+  x(2) = x(1) + step*v(1) + (0.5)*a(2)*(step)**(2)
+  
   open(unit=100, file="x_t.dat")
   open(unit=200, file="v_t.dat")
   open(unit=300, file="a_t.dat")
@@ -29,26 +27,23 @@ program shm
   open(unit=500, file="u_t.dat")
   open(unit=600, file="e_t.dat")
 
-  do while (c_t < domain)
-    p_x = n_x
+  do i = 2, domain - 1
+    a(i+1) = get_a(x(i))
+    x(i+1) = 2.d0*x(i) - x(i-1) + a(i+1)*(step)**(2)
+    v(i+1) = (x(i+1) - x(i))/(step)
 
-    c_a = get_a(n_x)
-    n_x = 2.d0*n_x - c_x + c_a*(step)**(2)
-    
-    c_v = (n_x - c_x)/(2.d0*step)
-    c_x = p_x
+    ke(i+1) = (0.5d0)*m*(v(i+1))**(2) 
+    spe(i+1) = (0.5d0)*k*(x(i+1))**(2)
 
-    ke = (0.5d0)*m*(c_v)**(2) 
-    spe = (0.5d0)*k*(c_x)**(2)
+    t(i+1) = t(i) + step
 
-    write(100,*) c_t, n_x
-    write(200,*) c_t, c_v
-    write(300,*) c_t, get_a(n_x)
-    write(400,*) c_t, ke
-    write(500,*) c_t, spe
-    write(600,*) c_t, ke+spe
+    write(100,*) t(i+1), x(i+1)
+    write(200,*) t(i+1), v(i+1)
+    write(300,*) t(i+1), a(i+1)
+    write(400,*) t(i+1), ke(i+1)
+    write(500,*) t(i+1), spe(i+1)
+    write(600,*) t(i+1), ke(i+1)+spe(i+1)
 
-    c_t = c_t + step
   end do
 
   close(100)
