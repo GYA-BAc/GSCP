@@ -3,10 +3,10 @@ program shm
   real(8), parameter :: m = 5.d0
 
   real(8), parameter :: step = 0.001d0
-  integer, parameter :: domain = 20000
+  integer, parameter :: max_i = 20000
  
   real(8) :: x_0
-  real(8) :: t(domain), x(domain), v(domain), a(domain), ke(domain), spe(domain)
+  real(8) :: t(max_i), x(max_i), v(max_i), a(max_i), ke(max_i), spe(max_i)
   integer :: i
 
   print *, "How far to stretch the spring?"
@@ -27,7 +27,7 @@ program shm
   open(unit=500, file="u_t.dat")
   open(unit=600, file="e_t.dat")
 
-  do i = 2, domain - 1
+  do i = 2, max_i - 1
     a(i+1) = get_a(x(i))
     x(i+1) = 2.d0*x(i) - x(i-1) + a(i+1)*(step)**(2)
     v(i+1) = (x(i+1) - x(i))/(step)
