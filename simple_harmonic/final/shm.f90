@@ -30,7 +30,7 @@ program shm
   do i = 2, max_i - 1
     a(i+1) = get_a(x(i))
     x(i+1) = 2.d0*x(i) - x(i-1) + a(i+1)*(step)**(2)
-    v(i+1) = (x(i+1) - x(i))/(step)
+    v(i+1) = (x(i+1) - x(i-1))/(2.d0*step)
 
     ke(i+1) = (0.5d0)*m*(v(i+1))**(2) 
     spe(i+1) = (0.5d0)*k*(x(i+1))**(2)
