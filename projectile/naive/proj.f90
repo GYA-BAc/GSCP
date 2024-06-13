@@ -59,7 +59,7 @@ function get_drag(v) result(f_d)
   real(8), dimension(3), intent(in) :: v
   real(8), dimension(3)             :: f_d
 
-  f_d = -(0.5)*density*drag*(pi*(b_rad)**(2))*(v)**(2)
+  f_d = -(0.5)*density*drag*(pi*(b_rad)**(2))*v*abs(v)
 end function
 
 end program

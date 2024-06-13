@@ -33,7 +33,6 @@ program fall
   open(unit=300, file="a_t.dat")
 
   do while (c_h >= 0.0)
-    
 
     c_a = -9.8d0 + get_drag(p_v)/b_mass 
     c_v = p_v+step*c_a

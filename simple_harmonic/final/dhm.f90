@@ -6,7 +6,7 @@ program dhm
   real(8), parameter :: m = 5.d0
 
   real(8), parameter :: step = 0.001d0
-  integer, parameter :: max_i = 20000
+  integer, parameter :: max_i = 100000
  
   real(8) :: b
   
@@ -23,10 +23,11 @@ program dhm
   t(1) = 0
   x(1) = x_0
 
-  t(2) = step
   a(1) = get_a(x(1))
   v(2) = a(1)*step
   x(2) = x(1) + (0.5)*a(1)*(step)**(2)
+  
+  t(2) = step
   
   open(unit=100, file="x_t.dat")
   open(unit=200, file="v_t.dat")
@@ -36,7 +37,7 @@ program dhm
   open(unit=600, file="e_t.dat")
 
   do i = 2, max_i - 1
-    a(i) = get_a(x(i)) - b*v(i)
+    a(i) = get_a(x(i)) - b*v(i)/m
     x(i+1) = 2.d0*x(i) - x(i-1) + a(i)*(step)**(2)
     v(i+1) = (x(i+1) - x(i-1))/(2.d0*step)
 
