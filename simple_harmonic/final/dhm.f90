@@ -26,7 +26,7 @@ program dhm
   t(2) = step
   a(1) = get_a(x(1))
   v(2) = a(1)*step
-  x(2) = x(1) + step*v(1) + (0.5)*a(1)*(step)**(2)
+  x(2) = x(1) + (0.5)*a(1)*(step)**(2)
   
   open(unit=100, file="x_t.dat")
   open(unit=200, file="v_t.dat")
