@@ -1,4 +1,5 @@
-program shm
+program dhm
+  ! dampened harmonic motion
   implicit none
 
   real(8), parameter :: k = 0.5d0
