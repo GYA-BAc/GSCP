@@ -38,9 +38,8 @@ program rlc
   print *, "Enter driving voltage:"
   read(*,*) E_0
 
-  print *, "Enter w_0"
-  read(*,*) w_0
-  
+  w_0 = 1.d0/sqrt(L*C)
+
   open(unit=100, file="q_t.dat")
   open(unit=120, file="i_t.dat")
   open(unit=130, file="Vr_t.dat")
