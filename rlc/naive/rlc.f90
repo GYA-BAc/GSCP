@@ -90,8 +90,8 @@ function get_di(t, c_q, c_i, L, E_0, w_0, R, C) result(d_i)
   real(8), intent(in) :: t, c_q, c_i, L, E_0, w_0, R, C
   real(8)             :: d_i
 
-  !d_i = (1/L) * (E_0*sin(w_0*t) - R*c_i - c_q/C)
-  d_i = -(1/L) * (R*c_i + c_q/C)
+  d_i = (1/L) * (E_0*sin(w_0*t) - R*c_i - c_q/C)
+  !d_i = -(1/L) * (R*c_i + c_q/C)
 
 end function
 
