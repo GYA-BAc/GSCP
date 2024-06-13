@@ -55,13 +55,12 @@ program rlc
   c_t = c_t + step
   c_i(2) = d_i(1)*step
   c_q(2) = c_q(1) + step*c_i(1) + (0.5)*d_i(1)*(step)**(2)
-  d_i(2) = get_di(c_t, c_q(2), c_i(2), L, E_0, w_0, R, C)
 
   
   do i = 2, max_n - 1 
    
-    d_i(i+1) = get_di(c_t, c_q(i), c_i(i), L, E_0, w_0, R, C)
-    c_q(i+1) = 2.d0*c_q(i) - c_q(i-1) + d_i(i+1)*(step)**(2)
+    d_i(i) = get_di(c_t, c_q(i), c_i(i), L, E_0, w_0, R, C)
+    c_q(i+1) = 2.d0*c_q(i) - c_q(i-1) + d_i(i)*(step)**(2)
     c_i(i+1) = (c_q(i+1) - c_q(i-1))/(2.d0*step)
 
     c_t = c_t + step
@@ -69,7 +68,7 @@ program rlc
     write(100,*) c_t, c_q(i+1)
     write(120,*) c_t, c_i(i+1)
     write(130,*) c_t, c_i(i+1)*R
-    write(140,*) c_t, c_i(i+1)*R + d_i(i+1)*L + c_q(i+1)/C
+    write(140,*) c_t, c_i(i+1)*R + d_i(i)*L + c_q(i+1)/C
     write(150,*) c_t, (0.5d0)*C*(c_q(i+1)/C)**(2) 
     write(160,*) c_t, (0.5d0)*L*(c_i(i+1))**(2) 
     write(170,*) c_t, (0.5d0)*C*(c_q(i+1)/C)**(2) + (0.5d0)*L*(c_i(i+1))**(2)  
@@ -91,7 +90,8 @@ function get_di(t, c_q, c_i, L, E_0, w_0, R, C) result(d_i)
   real(8), intent(in) :: t, c_q, c_i, L, E_0, w_0, R, C
   real(8)             :: d_i
 
-  d_i = (1/L) * (E_0*sin(w_0*t) - R*c_i - c_q/C)
+  !d_i = (1/L) * (E_0*sin(w_0*t) - R*c_i - c_q/C)
+  d_i = -(1/L) * (R*c_i + c_q/C)
 
 end function
 
