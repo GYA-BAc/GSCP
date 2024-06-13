@@ -16,9 +16,9 @@ program shm
   x(1) = x_0
 
   t(2) = step
-  a(2) = get_a(x(1))
+  a(1) = get_a(x(1))
   v(2) = a(1)*step
-  x(2) = x(1) + step*v(1) + (0.5)*a(2)*(step)**(2)
+  x(2) = x(1) + step*v(1) + (0.5)*a(1)*(step)**(2)
   
   open(unit=100, file="x_t.dat")
   open(unit=200, file="v_t.dat")
@@ -28,8 +28,8 @@ program shm
   open(unit=600, file="e_t.dat")
 
   do i = 2, max_i - 1
-    a(i+1) = get_a(x(i))
-    x(i+1) = 2.d0*x(i) - x(i-1) + a(i+1)*(step)**(2)
+    a(i) = get_a(x(i))
+    x(i+1) = 2.d0*x(i) - x(i-1) + a(i)*(step)**(2)
     v(i+1) = (x(i+1) - x(i-1))/(2.d0*step)
 
     ke(i+1) = (0.5d0)*m*(v(i+1))**(2) 
@@ -39,7 +39,7 @@ program shm
 
     write(100,*) t(i+1), x(i+1)
     write(200,*) t(i+1), v(i+1)
-    write(300,*) t(i+1), a(i+1)
+    write(300,*) t(i+1), a(i)
     write(400,*) t(i+1), ke(i+1)
     write(500,*) t(i+1), spe(i+1)
     write(600,*) t(i+1), ke(i+1)+spe(i+1)
