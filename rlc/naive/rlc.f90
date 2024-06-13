@@ -1,7 +1,7 @@
 program rlc
   implicit none
 
-  integer, parameter :: max_n = 5000
+  integer, parameter :: max_n = 12000
   integer :: i
 
   real(8) :: q_0, C
@@ -68,8 +68,8 @@ program rlc
 
     write(100,*) c_t, c_q(i+1)
     write(120,*) c_t, c_i(i+1)
-    write(130,*) c_t, c_i(i+1)/R
-    write(140,*) c_t, c_i(i+1)/R + d_i(i+1)*L + c_q(i+1)/C
+    write(130,*) c_t, c_i(i+1)*R
+    write(140,*) c_t, c_i(i+1)*R + d_i(i+1)*L + c_q(i+1)/C
     write(150,*) c_t, (0.5d0)*C*(c_q(i+1)/C)**(2) 
     write(160,*) c_t, (0.5d0)*L*(c_i(i+1))**(2) 
     write(170,*) c_t, (0.5d0)*C*(c_q(i+1)/C)**(2) + (0.5d0)*L*(c_i(i+1))**(2)  
@@ -87,18 +87,11 @@ program rlc
 
 contains
 
-function get_di(t, c_q, c_i, L, E_0, w_0, R, C) result(di)
-  real(8), intent(in) :: t
-  real(8), intent(in) :: c_q
-  real(8), intent(in) :: c_i
-  real(8), intent(in) :: L
-  real(8), intent(in) :: E_0
-  real(8), intent(in) :: w_0
-  real(8), intent(in) :: R
-  real(8), intent(in) :: C
-  real(8)             :: di
+function get_di(t, c_q, c_i, L, E_0, w_0, R, C) result(d_i)
+  real(8), intent(in) :: t, c_q, c_i, L, E_0, w_0, R, C
+  real(8)             :: d_i
 
-  di = (1/L) * (E_0*sin(w_0*t) - R*c_i - c_q/C)
+  d_i = (1/L) * (E_0*sin(w_0*t) - R*c_i - c_q/C)
 
 end function
 
