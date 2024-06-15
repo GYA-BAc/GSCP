@@ -2,17 +2,19 @@ program dhm
   ! dampened harmonic motion
   implicit none
 
-  real(8), parameter :: k = 0.5d0
-  real(8), parameter :: m = 5.d0
+  real(8), parameter :: pi = 4.d0*atan(1.d0)
 
-  real(8), parameter :: step = 0.001d0
-  integer, parameter :: max_i = 100000
+  real(8), parameter :: k = 1.d0
+  real(8), parameter :: m = 1.d0
  
   real(8) :: b
   
   real(8) :: x_0, F_0, w_d
-  real(8) :: t(max_i), x(max_i), v(max_i), a(max_i), ke(max_i), spe(max_i)
-  integer :: i
+  real(8), allocatable, dimension(:) :: t, x, v, a, ke, spe
+
+  real(8), parameter :: step = 0.01d0
+  integer, parameter :: cycles = 20
+  integer :: i, i_max
 
   print *, "How far to stretch the spring?"
   read(*,*) x_0
@@ -25,6 +27,10 @@ program dhm
 
   print *, "Choose a driving frequency:"
   read(*,*) w_d
+
+  
+  i_max = floor(cycles*2*pi*sqrt(m/k)/step)
+  allocate(t(i_max), x(i_max), v(i_max), a(i_max), ke(i_max), spe(i_max))
 
   t(1) = 0
   x(1) = x_0
@@ -42,7 +48,7 @@ program dhm
   open(unit=500, file="u_t.dat")
   open(unit=600, file="e_t.dat")
 
-  do i = 2, max_i - 1
+  do i = 2, i_max - 1
     a(i) = get_a(x(i)) - b*v(i)/m + (F_0)*cos(w_d*t(i))/m
     x(i+1) = 2.d0*x(i) - x(i-1) + a(i)*(step)**(2)
     v(i+1) = (x(i+1) - x(i-1))/(2.d0*step)
