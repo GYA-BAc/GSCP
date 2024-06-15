@@ -1,26 +1,24 @@
 program rlc
   implicit none
 
-  integer, parameter :: max_n = 5000
-  integer :: i
+  real(8), parameter :: pi = 4.d0*atan(1.d0)
 
   real(8) :: q_0, C
-  real(8) :: c_q(max_n)
+  real(8), allocatable, dimension(:) :: c_q
 
   real(8) :: L
-  real(8) :: d_i(max_n) ! di / dt
+  real(8), allocatable, dimension(:) :: d_i! di / dt
 
   real(8) :: i_0, R
-  real(8) :: c_i(max_n) ! current current in circuit
+  real(8), allocatable, dimension(:) :: c_i ! current
 
   real(8) :: E_0 ! driving voltage
-  !real(8) :: w_0 ! resonant frequency
   real(8) :: w_d ! driving frequency
 
   real(8), parameter :: step = 0.01d0
-  real(8), parameter :: domain = 25.d0
-
-
+  integer, parameter :: oscillations = 20
+  integer :: i, max_n
+  
   real(8) :: c_t = 0.d0
   
   print *, "Enter capacitor q_0:"
@@ -39,10 +37,11 @@ program rlc
   print *, "Enter driving voltage:"
   read(*,*) E_0
 
-  !w_0 = 1.d0/sqrt(L*C)
   print *, "Enter driving frequency:"
   read(*,*) w_d
 
+  max_n = floor(pi*sqrt(L*C)/step)*(oscillations-1)
+  allocate(c_q(max_n), c_i(max_n), d_i(max_n))
 
   open(unit=100, file="q_t.dat")
   open(unit=120, file="i_t.dat")
