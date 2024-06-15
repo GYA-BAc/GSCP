@@ -10,7 +10,7 @@ program dhm
  
   real(8) :: b
   
-  real(8) :: x_0, F_0
+  real(8) :: x_0, F_0, w_d
   real(8) :: t(max_i), x(max_i), v(max_i), a(max_i), ke(max_i), spe(max_i)
   integer :: i
 
@@ -20,15 +20,18 @@ program dhm
   print *, "Choose a dampening constant:"
   read(*,*) b
 
-  print *, "Choose a driving force:P"
+  print *, "Choose a driving force:"
   read(*,*) F_0
+
+  print *, "Choose a driving frequency:"
+  read(*,*) w_d
 
   t(1) = 0
   x(1) = x_0
 
-  a(1) = get_a(x(1))
+  a(1) = get_a(x(1)) + (F_0)/m
   v(2) = a(1)*step
-  x(2) = x(1) + (0.5)*a(1)*(step)**(2)
+  x(2) = x(1) + v(2)*step + (0.5)*a(1)*(step)**(2)
   
   t(2) = step
   
@@ -40,7 +43,7 @@ program dhm
   open(unit=600, file="e_t.dat")
 
   do i = 2, max_i - 1
-    a(i) = get_a(x(i)) - b*v(i)/m + (F_0)*sin(0.5d0*t(i))/m
+    a(i) = get_a(x(i)) - b*v(i)/m + (F_0)*cos(w_d*t(i))/m
     x(i+1) = 2.d0*x(i) - x(i-1) + a(i)*(step)**(2)
     v(i+1) = (x(i+1) - x(i-1))/(2.d0*step)
 
