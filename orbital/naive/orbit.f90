@@ -7,8 +7,7 @@ program orbit
 
   real(8), dimension(3) ::         &
     c_r = (/1.d0, 0.d0, 0.d0/),    &
-    c_v = (/0.d0, 2.d0*pi, 0.d0/), &
-    c_a = (/0.d0, 0.d0, 0.d0/)
+    c_v = (/0.d0, 2.d0*pi, 0.d0/)
 
   real(8), dimension(4, 3) :: k ! for RK4
 
