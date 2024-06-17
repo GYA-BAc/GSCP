@@ -3,6 +3,7 @@ program orbit
 
   real(8), parameter :: pi = 4.d0*atan(1.d0)
   real(8), parameter :: GM = 4.d0*(pi)**(2) ! AU^3/yr^2
+  real(8), parameter :: mass = 1.d0
 
   real(8), dimension(3) ::         &
     c_r = (/1.d0, 0.d0, 0.d0/),    &
@@ -26,19 +27,21 @@ program orbit
   do while (c_t < domain)
     
     k(1,:) = c_v
-    k(2,:) = c_v + (step/2.d0)*get_a(c_r+k(1,:)*step/2.d0)
-    k(3,:) = c_v + (step/2.d0)*get_a(c_r+k(2,:)*step/2.d0)
-    k(4,:) = c_v + step*get_a(c_r+k(3,:)*step)
+    k(2,:) = c_v + (step/2.d0) * get_a(c_r+k(1,:)*step/2.d0)
+    k(3,:) = c_v + (step/2.d0) * get_a(c_r+k(2,:)*step/2.d0)
+    k(4,:) = c_v + step * get_a(c_r+k(3,:)*step)
 
     c_r = c_r + (step/6.d0) * (k(1,:)+2.d0*k(2,:)+2.d0*k(3,:)+k(4,:))
     
     c_v = c_v + get_a(c_r)*step
-    !ke = (0.5d0)*GM*sqrt(c_v(1)**2 + c_v(2)**2 + c_v(3)**2)
+
+    ke = (0.5d0) * mass * magnitude(c_v)**2
+    gpe = mass * GM * magnitude(c_r)
 
     write(100,*) c_r(1), c_r(2), c_r(3)  
-    !write(110,*) c_t, ke
-    !write(120,*) c_t, gpe
-    !write(130,*) c_t, ke+gpe
+    write(110,*) c_t, ke
+    write(120,*) c_t, gpe
+    write(130,*) c_t, ke+gpe
 
 
     c_t = c_t + step
@@ -51,11 +54,11 @@ program orbit
 
 contains
 
-function get_magnitude(vec) result(sca)
+function magnitude(vec) result(sca)
   real(8), dimension(3), intent(in) :: vec
-  real(8)                           :: sca
+  real(8)                           :: sca!ar
 
-  sca = sqrt(vec(1)**2.d0 + vec(2)**2.d0 + vec(3)**2.d0)
+  sca = sqrt(vec(1)**2 + vec(2)**2 + vec(3)**2)
 
 end function
 
@@ -63,7 +66,7 @@ function get_a(r) result(a)
   real(8), dimension(3), intent(in) :: r
   real(8), dimension(3)             :: a
   
-  a = -GM*r/(get_magnitude(r)**3.d0)
+  a = -GM*r/(magnitude(r)**3.d0)
 
 end function
 
