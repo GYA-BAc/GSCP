@@ -29,7 +29,7 @@ program dhm
   read(*,*) w_d
 
   
-  i_max = floor(cycles*2*pi*sqrt(m/k)/step)
+  i_max = floor((cycles-1.d0)*2*pi*sqrt(m/k)/step)
   allocate(t(i_max), x(i_max), v(i_max), a(i_max), ke(i_max), spe(i_max))
 
   t(1) = 0
