@@ -20,6 +20,8 @@ program proj
   real(8) :: p_v(3) = v_0(:)
   real(8) :: c_a(3) = [0.d0, 0.d0, 0.d0]
 
+  real(8) :: h_max = 0
+
   real(8) :: c_t = 0.d0
   real(8) :: step = 0.01d0
 
@@ -38,6 +40,10 @@ program proj
     c_r = c_r + step*(c_v+p_v)/2.d0
     p_v = c_v
     
+    if (c_r(3) > h_max) then
+      h_max = c_r(3)
+    end if
+
     write(100,*) c_r(1), c_r(2), c_r(3)
     write(110,*) c_t, c_r(1) !x
     write(120,*) c_t, c_r(3) !z
@@ -48,7 +54,11 @@ program proj
     
     c_t = c_t + step
   end do
- 
+
+  print *, "Duration of flight: ", c_t, " s"
+  print *, "X range was: ", c_r(1), " m"
+  print *, "Max height was:", h_max, " m" 
+
   close(100) 
   close(110) 
   close(120) 
@@ -63,7 +73,7 @@ function get_drag(v) result(f_d)
   real(8), dimension(3), intent(in) :: v
   real(8), dimension(3)             :: f_d
 
-  f_d = -(0.5)*density*drag*(pi*(b_rad)**(2))*v*abs(v)
+  f_d = -(0.5)*density*drag*(pi*(b_rad)**(2))*v*norm2(v)
 end function
 
 end program
