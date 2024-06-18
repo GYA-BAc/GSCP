@@ -34,8 +34,8 @@ program orbit
     
     c_v = c_v + get_a(c_r)*step
 
-    ke = (0.5d0) * mass * magnitude(c_v)**2
-    gpe = mass * GM * magnitude(c_r)
+    ke = (0.5d0) * mass * norm2(c_v)**2
+    gpe = mass * GM * norm2(c_r)
 
     write(100,*) c_r(1), c_r(2), c_r(3)  
     write(110,*) c_t, ke
@@ -53,19 +53,11 @@ program orbit
 
 contains
 
-function magnitude(vec) result(sca)
-  real(8), dimension(3), intent(in) :: vec
-  real(8)                           :: sca!ar
-
-  sca = sqrt(vec(1)**2 + vec(2)**2 + vec(3)**2)
-
-end function
-
 function get_a(r) result(a)
   real(8), dimension(3), intent(in) :: r
   real(8), dimension(3)             :: a
   
-  a = -GM*r/(magnitude(r)**3.d0)
+  a = -GM*r/(norm2(r)**3.d0)
 
 end function
 
