@@ -22,13 +22,15 @@ program proj
 
   real(8) :: c_t = 0.d0
   real(8) :: step = 0.01d0
-  
-  open(unit=100, file="x_t.dat")
-  open(unit=110, file="z_t.dat")
-  open(unit=120, file="vx_t.dat")
-  open(unit=130, file="vz_t.dat")
-  open(unit=140, file="ax_t.dat")
-  open(unit=150, file="az_t.dat")
+
+
+  open(unit=100, file="r.dat")
+  open(unit=110, file="x_t.dat")
+  open(unit=120, file="z_t.dat")
+  open(unit=130, file="vx_t.dat")
+  open(unit=140, file="vz_t.dat")
+  open(unit=150, file="ax_t.dat")
+  open(unit=160, file="az_t.dat")
 
   do while (c_r(3) >= 0)
     c_a = a_g + get_drag(p_v)/b_mass
@@ -36,12 +38,13 @@ program proj
     c_r = c_r + step*(c_v+p_v)/2.d0
     p_v = c_v
     
-    write(100,*) c_t, c_r(1) !x
-    write(110,*) c_t, c_r(3) !z
-    write(120,*) c_t, c_v(1)
-    write(130,*) c_t, c_v(3)
-    write(140,*) c_t, c_a(1)
-    write(150,*) c_t, c_a(3)
+    write(100,*) c_r(1), c_r(2), c_r(3)
+    write(110,*) c_t, c_r(1) !x
+    write(120,*) c_t, c_r(3) !z
+    write(130,*) c_t, c_v(1)
+    write(140,*) c_t, c_v(3)
+    write(150,*) c_t, c_a(1)
+    write(160,*) c_t, c_a(3)
     
     c_t = c_t + step
   end do
@@ -52,6 +55,7 @@ program proj
   close(130) 
   close(140) 
   close(150) 
+  close(160)
 
 contains
 
