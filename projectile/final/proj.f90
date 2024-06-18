@@ -56,8 +56,8 @@ program proj
   end do
 
   print *, "Duration of flight: ", c_t, " s"
-  print *, "X range was: ", c_r(1), " m"
-  print *, "Max height was:", h_max, " m" 
+  print *, "X range was:        ", c_r(1), " m"
+  print *, "Max height was:     ", h_max, " m" 
 
   close(100) 
   close(110) 
