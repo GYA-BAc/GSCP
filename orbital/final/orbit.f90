@@ -26,7 +26,7 @@ program orbit
   do while (c_t < domain)
    
     k(1,1:3) = state(4:6)
-    k(1,4:6) = get_a(state)
+    k(1,4:6) = get_a(state(1:3))
 
     temp = state + (0.5)*step*k(1,:)
     
