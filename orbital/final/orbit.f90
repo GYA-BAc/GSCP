@@ -13,7 +13,7 @@ program orbit
 
   real(8) :: ke, u
 
-  real(8), parameter :: step = 1.d-4
+  real(8), parameter :: step = 1.d-2
   real(8) :: c_t = 0
 
   real(8) :: domain = 1 !yr
