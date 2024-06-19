@@ -11,7 +11,7 @@ program orbit
 
   real(8), dimension(4, 3) :: k ! for RK4
 
-  real(8) :: ke, gpe
+  real(8) :: ke, u
 
   real(8), parameter :: step = 1.d-4
   real(8) :: c_t = 0
@@ -35,12 +35,12 @@ program orbit
     c_v = c_v + get_a(c_r)*step
 
     ke = (0.5d0) * mass * norm2(c_v)**2
-    gpe = mass * GM * norm2(c_r)
+    u = - mass * GM / norm2(c_r)
 
     write(100,*) c_r(1), c_r(2), c_r(3)  
     write(110,*) c_t, ke
-    write(120,*) c_t, gpe
-    write(130,*) c_t, ke+gpe
+    write(120,*) c_t, u
+    write(130,*) c_t, ke+u
 
 
     c_t = c_t + step
@@ -57,7 +57,7 @@ function get_a(r) result(a)
   real(8), dimension(3), intent(in) :: r
   real(8), dimension(3)             :: a
   
-  a = -GM*r/(norm2(r)**3.d0)
+  a = -GM*mass*r/(norm2(r)**3.d0)
 
 end function
 
