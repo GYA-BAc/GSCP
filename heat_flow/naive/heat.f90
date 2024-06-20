@@ -9,7 +9,7 @@ program heat
   real(8), parameter :: tau = 0.0001d0
   real(8), parameter :: h = L/N
 
-  integer, parameter :: epochs = 3000
+  integer, parameter :: epochs = 5000
   integer :: i
   integer :: x
 
@@ -32,7 +32,6 @@ program heat
       
     end do
 
-    
     write(100,*) T(cur,:)
 
     prev = cur
