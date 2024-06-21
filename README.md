@@ -6,7 +6,7 @@
 
 ## Examples:
 
-### Fourier Series Approximation:
+### [Fourier Series Approximation](plotting/):
 ![image](https://github.com/GYA-BAc/GSCP/assets/97851399/23ec8c1c-6c1c-47c1-b6a6-8026cd69c6e0)
 
 ### Lorentz Force:
