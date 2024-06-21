@@ -6,24 +6,30 @@ program proj
   real(8), parameter :: drag = 0.1d0
   real(8), parameter :: density = 1.225d0   !kg/m^2
 
-  real(8), parameter :: b_mass   = 0.140d0   !kg
-  real(8), parameter :: b_rad = 0.0365d0 !meters
-
-
-  real(8), parameter :: r_0(3) = [0.d0, 0.d0, 1.d0]
-  real(8), parameter :: v_0(3) = [20.d0*cosd(50.d0), 0.d0, 20.d0*sind(50.d0)] 
+  real(8), parameter :: b_mass = 0.06796d0   !kg
+  real(8), parameter :: b_rad = 0.02532d0/2.d0 !meters
 
   real(8), parameter :: a_g(3) = [0.d0, 0.d0, -9.8d0]
 
-  real(8) :: c_r(3) = r_0(:)
-  real(8) :: c_v(3) = [0.d0, 0.d0, 0.d0]
-  real(8) :: p_v(3) = v_0(:)
-  real(8) :: c_a(3) = [0.d0, 0.d0, 0.d0]
+  real(8), dimension(3) :: c_r, p_v, c_v, c_a
 
   real(8) :: h_max = 0
 
   real(8) :: c_t = 0.d0
   real(8) :: step = 0.01d0
+
+  real(8) :: v_0
+  real(8) :: theta
+
+  print *, "Enter v_0: "
+  read(*,*) v_0
+  print *, "Enter theta: "
+  read(*,*) theta
+  
+  c_r(:) = [0.d0, 0.d0, 1.075d0]
+  c_v(:) = [0.d0, 0.d0, 0.d0]
+  p_v(:) = [v_0*cosd(theta), 0.d0, v_0*sind(theta)] 
+  c_a(:) = [0.d0, 0.d0, 0.d0]
 
 
   open(unit=100, file="r.dat")
@@ -35,7 +41,7 @@ program proj
   open(unit=160, file="az_t.dat")
 
   do while (c_r(3) >= 0)
-    c_a = a_g + get_drag(p_v)/b_mass
+    c_a = a_g! + get_drag(p_v)/b_mass
     c_v = p_v+step*c_a
     c_r = c_r + step*(c_v+p_v)/2.d0
     p_v = c_v

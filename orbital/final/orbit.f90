@@ -16,7 +16,7 @@ program orbit
   real(8), parameter :: step = 1.d-2
   real(8) :: c_t = 0
 
-  real(8) :: domain = 1 !yr
+  real(8) :: domain = 10 !yr
 
   open(unit=100, file="r_t.dat")
   open(unit=110, file="k_t.dat")
@@ -47,12 +47,11 @@ program orbit
     
     ke = (0.5d0) * mass * norm2(state(4:6))**2
     u = - mass * GM / norm2(state(1:3))
-
+    
     write(100,*) state(1), state(2), state(3)  
     write(110,*) c_t, ke
     write(120,*) c_t, u
     write(130,*) c_t, ke+u
-
 
     c_t = c_t + step
   end do

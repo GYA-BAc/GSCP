@@ -31,7 +31,7 @@ program proj
   open(unit=150, file="az_t.dat")
 
   do while (c_r(3) >= 0)
-    c_a = a_g + get_drag(p_v)/b_mass
+    c_a = a_g !+ get_drag(p_v)/b_mass
     c_v = p_v+step*c_a
     c_r = c_r + step*(c_v+p_v)/2.d0
     p_v = c_v
