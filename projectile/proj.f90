@@ -1,4 +1,5 @@
 program proj
+  ! This program simulates projectile motion with air drag using the Midpoint Algorithm 
   implicit none
 
   real(8), parameter :: pi = 4.d0*atan(1.d0)

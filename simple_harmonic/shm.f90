@@ -1,4 +1,6 @@
 program shm
+  ! This algorithm demonstrates simple harmonic motion using the Verlet Algorithm
+
   implicit none
 
   real(8), parameter :: k = 0.5d0

@@ -1,4 +1,5 @@
 program orbit
+  ! This program simulates a satellite's orbit using the RK4 algorithm
   implicit none
 
   real(8), parameter :: pi = 4.d0*atan(1.d0)

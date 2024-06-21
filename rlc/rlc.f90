@@ -1,4 +1,6 @@
 program rlc
+  ! This program models the state of an RLC circuit using the Verlet Algorithm, demonstrating damped, driven harmonic motion
+
   implicit none
 
   real(8), parameter :: pi = 4.d0*atan(1.d0)

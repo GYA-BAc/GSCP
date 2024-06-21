@@ -1,4 +1,6 @@
 program shm
+  ! This program demonstrates simple harmonic motion using the Velocity Verlet Algorithm
+
   real(8), parameter :: k = 0.5d0
   real(8), parameter :: m = 5
 

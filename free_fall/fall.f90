@@ -1,5 +1,7 @@
 
 program fall
+  ! This program simulates free fall with air drag using Modified Euler's Algorithm (Midpoint Method)
+
   implicit none
 
   real(8), parameter :: pi = 4.d0*atan(1.d0)

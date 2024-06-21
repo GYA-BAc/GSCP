@@ -1,4 +1,5 @@
 program lorentz
+  ! This program simulates a charged particle through an electric and magnetic field using the RK4 algorithm
   implicit none
 
   real(8), parameter :: &

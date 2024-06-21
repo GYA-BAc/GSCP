@@ -1,5 +1,6 @@
 program dhm
-  ! dampened harmonic motion
+  ! This program demonstrates dampened, driven harmonic motion using the Verlet Algorithm
+
   implicit none
 
   real(8), parameter :: pi = 4.d0*atan(1.d0)

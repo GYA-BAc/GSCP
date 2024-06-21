@@ -1,5 +1,7 @@
 
 program fall
+  ! This program simulates basic free fall without air drag
+
   implicit none
 
   real(8) :: step = 0.1

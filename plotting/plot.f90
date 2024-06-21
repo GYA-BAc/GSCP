@@ -1,5 +1,5 @@
 program plot
-  ! This program uses the fourier series to approximate a sawtooth function
+  ! This program uses fourier series to approximate a sawtooth function
   implicit none
 
   real(8), parameter :: step = 1d-2

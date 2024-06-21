@@ -1,4 +1,6 @@
 program heat
+  ! This program simulates heat diffusion over a 1D rod using the FTCS method for heat flow
+
   implicit none
  
   integer, parameter :: N = 61
