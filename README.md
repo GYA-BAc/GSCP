@@ -6,11 +6,11 @@
 
 ## Examples:
 
-### [Fourier Series Approximation](plotting/):
+### [Fourier Series Approximation:](plotting/)
 ![image](https://github.com/GYA-BAc/GSCP/assets/97851399/23ec8c1c-6c1c-47c1-b6a6-8026cd69c6e0)
 
-### Lorentz Force:
+### [Lorentz Force:](lorentz/)
 ![image](https://github.com/GYA-BAc/GSCP/assets/97851399/007035b9-7c16-4cf7-9d9e-5998cc6d0640)
 
-### Heat Flow:
+### [Heat Flow:](heat_flow/)
 ![image](https://github.com/GYA-BAc/GSCP/assets/97851399/56cd7721-86a3-4404-afed-dc1b5e16be80)
